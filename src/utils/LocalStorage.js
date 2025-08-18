@@ -3,7 +3,6 @@ export const getLocalStorage = (key) => {
   return data;
 }
 
-
 export const setLocalStorage = (key, value) => {
   if (getLocalStorage(key)) {
       alert('Account already exists');
