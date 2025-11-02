@@ -1,50 +1,43 @@
-import { useState } from "react";
+import { useState } from "react"
 
-function ToDoList() {
-  const [items, setItems] = useState([]);
-  const [item, setItem] = useState("");
+const Todolist = () => {
+  const [value, setValue] = useState("")
+  const [state, setState] = useState([])
+  const [kote, setKote] = useState(false)
+  const [proKote, setProKote] = useState('')
 
-  const handleChange = (e) => {
-    setItem(e.target.value);
-  };
-
-  const handleClick = () => {
-    if (item.length > 0) {
-      setItems([...items, item]);
-      setItem("");
-    } else {
-      alert("Cant be empty string!");
+  function AddTodolist(){
+    if(value){
+      setState([...state, value])
+      setValue('')
     }
-  };
+  }
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (item.length > 0) {
-      setItems([...items, item]);
-      setItem("");
-    }
-  };
+  function Remove(index){
+    setState(e => e.filter((_, indexx) => indexx !== index))
+  }
 
-  const handleDelete = (index) => {
-    const filteredItems = items.filter((_, i) => i !== index);
-    setItems(filteredItems);
-  };
+  function Edit(el){
+    setKote(!kote)
+    setState(s => s.filter(ell => el === ell ? proKote : ell))
+  }
 
   return (
     <div>
-      <form onSubmit={handleSubmit}>
-        <input type="text" name="item" value={item} onChange={handleChange} placeholder="Add todo item...." required />
-        <button type="button" onClick={handleClick}>Add</button>
-      </form>
-      <ul>
-        {
-          items.map((item, index) => {
-            return <li key={index} onClick={() => handleDelete(index)}>{item}</li>;
-          })
-        }
-      </ul>
+      <input type="text" value={value} onChange={(e) => setValue(e.target.value)} />
+      <button onClick={AddTodolist}>Submit</button>
+
+      <ol>
+        {state.map((el, index) => (
+          <li key={index} className="m-3 p-3 bg-gray-300">
+            {!kote ? <h1>{el}</h1> : <input value={proKote} onChange={(e) => setProKote(e.target.value)} />}
+            <button onClick={() => Edit(el)}>knopka</button>
+            <button onClick={() => Remove(index)}>batoni</button>
+          </li>
+        ))}
+      </ol>
     </div>
-  );
+  )
 }
 
-export default ToDoList;
+export default Todolist

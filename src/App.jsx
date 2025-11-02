@@ -1,10 +1,9 @@
-import Warmup from "./components/Warmup";
+import Register1 from "./components/Register1";
 
 function App() {
-  const user = { name: "Andria" };
 
   return (
-    <Warmup />
+    <Register1 />
   );
 }
 
